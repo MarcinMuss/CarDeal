@@ -1,0 +1,141 @@
+<div class="form-row">
+  <div class="form-item">
+    <label>Title</label>
+    <input type="text" name="title" value="<%= car.title %>">
+  </div>
+  <div class="form-item">
+    <label>Employee</label>
+    <select name="employee">
+      <% employees.forEach(employee => { %>
+        <% if (employee.id === car.employee) { %>
+          <option selected label="<%= employee.name %> <%= employee.surname %>" value="<%= employee.id %>">
+        <% } else { %>
+          <option label="<%= employee.name %> <%= employee.surname %>" value="<%= employee.id %>">
+        <% } %>
+      <% }) %>
+    </select>
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-item">
+    <label>Year Of Production</label>
+    <input type="date" name="yearOfProduction"
+          value="<%= car.yearOfProduction == null ? '' : car.yearOfProduction.toISOString().split('T')[0] %>">
+  </div>
+  <div class="form-item">
+    <label>Price</label>
+    <input type="number" name="price" min="1000" value="<%= car.price %>">
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-item">
+    <label>Brand</label>
+    <input type="text" name="brand" value="<%= car.brand %>">
+  </div>
+  <div class="form-item">
+    <label>Model</label>
+    <input type="text" name="modell" value="<%= car.modell %>">
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-item">
+    <label>Mileage</label>
+    <input type="number" name="mileage" value="<%= car.mileage %>">
+  </div>
+  <div class="form-item">
+    <label>Type Of Fuel</label>
+    <select name="typeOfFuel">
+      <option value="Benzyna">Benzyna</option>
+      <option value="Benzyna+LPG">Benzyna+LPG</option>
+      <option value="Diesel">Diesel</option>
+    </select>
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-item">
+    <label>Capacity</label>
+    <input type="number" name="capacity" value="<%= car.capacity %>">
+  </div>
+  <div class="form-item">
+    <label>Power</label>
+    <input type="number" name="power" value="<%= car.power %>">
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-item">
+    <label>Gearbox</label>
+    <select name="gearbox">
+      <option value="Automatyczna">Automatyczna</option>
+      <option value="Manualna">Manualna</option>
+    </select>
+  </div>
+  <div class="form-item">
+    <label>Drive</label>
+    <select name="drive">
+      <option value="Na przednie koła">Na przednie koła</option>
+      <option value="Na tylne koła">Na tylne koła</option>
+      <option value="Napęd 4x4">Napęd 4x4</option>
+    </select>
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-item">
+    <label>Country</label>
+    <input type="text" name="country" value="<%= car.country %>">
+  </div>
+  <div class="form-item">
+    <label>Registered In Poland</label>
+    <select name="registeredInPoland">
+      <option value="Tak">Tak</option>
+      <option value="Nie">Nie</option>
+    </select>
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-item">
+    <label>First Owner</label>
+    <select name="firstOwner">
+      <option value="Tak">Tak</option>
+      <option value="Nie">Nie</option>
+    </select>
+  </div>
+  <div class="form-item">
+    <label>Not Crashed</label>
+    <select name="notCrashed">
+      <option value="Tak">Tak</option>
+      <option value="Nie">Nie</option>
+    </select>
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-item">
+    <label>English</label>
+    <select name="english">
+      <option value="Tak">Tak</option>
+      <option value="Nie">Nie</option>
+    </select>
+  </div>
+  <div class="form-item">
+    <label>VIN</label>
+    <input type="number" name="vin" value="<%= car.vin %>">
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-item form-item-no-grow">
+    <label>Cover</label>
+    <input type="file" name="cover" class="car-cover filepond">
+  </div>
+  <div class="form-item">
+    <label>Description</label>
+    <textarea name="description"><%= car.description %></textarea>
+  </div>
+</div>

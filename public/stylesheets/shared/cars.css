@@ -1,0 +1,60 @@
+:root {
+  --car-cover-width: 200px;
+  --car-cover-width-large: 325px;
+  --car-cover-aspect-ratio: 0.75;
+}
+
+.car-cover {
+  width: var(--car-cover-width);
+  height: calc(var(--car-cover-width) / var(--car-cover-aspect-ratio));
+}
+
+.car-cover-large {
+  --car-cover-width: var(--car-cover-width-large);
+}
+
+.car-grid {
+  display: grid;
+  justify-content: center;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fill, var(--car-cover-width));
+}
+
+.car-grid-large {
+  grid-template-columns: repeat(auto-fill, var(--car-cover-width-large));
+}
+
+.car-details {
+  display: flex;
+}
+
+.car-details-label {
+  font-size: 1.2rem;
+  font-weight: 500;
+  align-self: flex-start;
+}
+
+.car-details-grid {
+  display: grid;
+  align-content: flex-start;
+  align-items: center;
+  grid-gap: 1rem;
+  grid-template-columns: auto auto;
+}
+
+.car-details-btn-grid {
+  display: grid;
+  justify-items: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  grid-template-areas:
+    "edit delete"
+    "employee employee";
+  grid-gap: .5rem;
+  margin-top: .5rem;
+}
+
+.car-details-employee-button {
+  grid-area: employee;
+  justify-self: stretch;
+}

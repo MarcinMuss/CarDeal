@@ -1,0 +1,49 @@
+<h2 class="page-header"><%= car.title %></h2>
+<div class="car-details">
+  <div>
+    <img class="car-cover" src="<%= car.coverImagePath %>">
+    <div class="car-details-btn-grid">
+      <a class="btn btn-primary" href="/admin/cars/<%= car.id %>/edit">Edit</a>
+      <%- include('../partials/deleteForm', { url: `/admin/cars/${car.id}` }) %>
+      <a class="btn btn-primary car-details-employee-button" href="/admin/employees/<%= car.employee.id %>">View Employee</a>
+    </div>
+  </div>
+  <div class="car-details-grid">
+    <div class="car-details-label">Employee:</div>
+    <div><%= car.employee.name %> <%= car.employee.surname %></div>
+    <div class="car-details-label">Year Of Production:</div>
+    <div><%= car.yearOfProduction.toDateString() %></div>
+    <div class="car-details-label">Price:</div>
+    <div><%= car.price %></div>
+    <div class="car-details-label">Brand:</div>
+    <div><%= car.brand %></div>
+    <div class="car-details-label">Model:</div>
+    <div><%= car.modell %></div>
+    <div class="car-details-label">Mileage:</div>
+    <div><%= car.mileage %></div>
+    <div class="car-details-label">Type Of Fuel:</div>
+    <div><%= car.typeOfFuel %></div>
+    <div class="car-details-label">Capacity:</div>
+    <div><%= car.capacity %></div>
+    <div class="car-details-label">Power:</div>
+    <div><%= car.power %></div>
+    <div class="car-details-label">Gearbox:</div>
+    <div><%= car.gearbox %></div>
+    <div class="car-details-label">Drive:</div>
+    <div><%= car.drive %></div>
+    <div class="car-details-label">Country:</div>
+    <div><%= car.country %></div>
+    <div class="car-details-label">Registered In Poland:</div>
+    <div><%= car.registeredInPoland %></div>
+    <div class="car-details-label">First Owner:</div>
+    <div><%= car.firstOwner %></div>
+    <div class="car-details-label">Not Crashed:</div>
+    <div><%= car.notCrashed %></div>
+    <div class="car-details-label">English:</div>
+    <div><%= car.english %></div>
+    <div class="car-details-label">VIN:</div>
+    <div><%= car.vin %></div>
+    <div class="car-details-label">Description:</div>
+    <div><%= car.description %></div>
+  </div>
+</div>
