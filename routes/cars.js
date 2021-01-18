@@ -172,13 +172,19 @@ async function renderFormPage(res, car, form, hasError = false) {
   }
 }
 
-function saveCover(car, coverEncoded) {
-  if (coverEncoded == null) return
-  const cover = JSON.parse(coverEncoded)
-  if (cover != null && imageMimeTypes.includes(cover.type)) {
-    car.coverImage = new Buffer.from(cover.data, 'base64')
-    car.coverImageType = cover.type
+
+function saveCover(car, covers) {
+  if (covers == null) return
+  const coverList = [];
+  for (let evnocedCover of covers) {
+    const cover = JSON.parse(evnocedCover);
+    if (cover != null && imageMimeTypes.includes(cover.type)) {
+      coverList.push(Buffer.from(cover.data, 'base64'))
+      car.coverImageType = cover.type
+    }
   }
+
+  car.coverImages = coverList;
 }
 
 module.exports = router

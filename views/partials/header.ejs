@@ -6,6 +6,12 @@
       <li><a href="/admin/employees/new">Add Employee</a></li>
       <li><a href="/admin/cars">Cars</a></li>
       <li><a href="/admin/cars/new">Add Car</a></li>
+      <% if (isAuthenticated) { %>
+        <li><form action="/log/logout?_method=DELETE" method="POST">
+        <button type="submit">Log Out</button>
+        </form>
+      <% } %>
+      </li> 
     </ul>
   </nav>
 </header>

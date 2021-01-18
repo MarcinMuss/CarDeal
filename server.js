@@ -7,8 +7,9 @@ const app = express()
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
+const { checkAuthenticated } = require('./authentication/authentication')
 
-const bcrypt = require('bcrypt')
+
 const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
@@ -20,14 +21,6 @@ const carRouter = require('./routes/cars')
 
 const loginRouter = require('./routes/login')
 
-
-const initializePassport = require('./public/javascripts/passport-config')
-initializePassport(
-  passport,
-  email => users.find(user => user.email === email),
-  id => users.find(user => user.id === id)
-)
-const users = []
 
 
 app.set('view engine', 'ejs')
@@ -56,8 +49,8 @@ db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to Mongoose'))
 
 app.use('/', indexRouter)
-app.use('/admin/employees', employeeRouter)
-app.use('/admin/cars', carRouter)
+app.use('/admin/employees', checkAuthenticated, employeeRouter)
+app.use('/admin/cars', checkAuthenticated, carRouter)
 
 app.use('/log', loginRouter)
 

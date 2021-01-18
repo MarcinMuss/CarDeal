@@ -1,24 +1,35 @@
 const express = require('express')
 const passport = require('passport')
+const bcrypt = require('bcrypt')
 const router = express.Router()
+const { checkAuthenticated } = require('../authentication/authentication')
+
+const users = []
+
+const initializePassport = require('../public/javascripts/passport-config')
+initializePassport(
+  passport,
+  email => users.find(user => user.email === email),
+  id => users.find(user => user.id === id)
+)
 
 
 router.get('/log', checkAuthenticated, (req, res) => {
-    res.render('indexxx.ejs', { name: req.user.name })
+    res.render('login/indexxx.ejs', { name: req.user.name })
 })
   
 router.get('/login', checkNotAuthenticated, (req, res) => {
-    res.render('login.ejs')
+    res.render('login/login.ejs')
 })
   
 router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-    successRedirect: '/log',
-    failureRedirect: '/login',
+    successRedirect: '/',
+    failureRedirect: '/log/login',
     failureFlash: true
 }))
   
 router.get('/register', checkNotAuthenticated, (req, res) => {
-    res.render('register.ejs')
+    res.render('login/register.ejs')
 })
   
 router.post('/register', checkNotAuthenticated, async (req, res) => {
@@ -30,27 +41,21 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
         email: req.body.email,
         password: hashedPassword
       })
-      res.redirect('/login')
+      res.redirect('/log/login')
     } catch {
-      res.redirect('/register')
+      res.redirect('/log/register')
     }
 })
   
 router.delete('/logout', (req, res) => {
     req.logOut()
-    res.redirect('/login')
+    res.redirect('/log/login')
 })
   
-function checkAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      return next()
-    }
-  
-    res.redirect('/login')
-}
   
 function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  if (req.isAuthenticated()) {
       return res.redirect('/log')
     }
     next()

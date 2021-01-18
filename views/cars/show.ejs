@@ -1,7 +1,9 @@
 <h2 class="page-header"><%= car.title %></h2>
 <div class="car-details">
   <div>
-    <img class="car-cover" src="<%= car.coverImagePath %>">
+    <% for(var cover of car.coverImagePaths){ %>
+      <img class="car-cover" src="<%= cover %>">
+    <% } %>
     <div class="car-details-btn-grid">
       <a class="btn btn-primary" href="/admin/cars/<%= car.id %>/edit">Edit</a>
       <%- include('../partials/deleteForm', { url: `/admin/cars/${car.id}` }) %>

@@ -77,9 +77,8 @@ const carSchema = new mongoose.Schema({
     required: true,
     default: Date.now
   },
-  coverImage: {
-    type: Buffer,
-    required: true
+  coverImages: {
+    type: Array
   },
   coverImageType: {
     type: String,
@@ -92,9 +91,9 @@ const carSchema = new mongoose.Schema({
   }
 })
 
-carSchema.virtual('coverImagePath').get(function() {
-  if (this.coverImage != null && this.coverImageType != null) {
-    return `data:${this.coverImageType};charset=utf-8;base64,${this.coverImage.toString('base64')}`
+carSchema.virtual('coverImagePaths').get(function () {
+  if (this.coverImages != null && this.coverImageType != null) {
+    return this.coverImages.map(coverImage => `data:${this.coverImageType};charset=utf-8;base64,${coverImage.toString('base64')}`)
   }
 })
 
