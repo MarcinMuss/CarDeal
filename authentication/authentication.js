@@ -4,7 +4,15 @@ function checkAuthenticated(req, res, next) {
       return next()
     }
   
-    res.redirect('/log/login')
+    res.redirect('/login')
 }
 
-module.exports = { checkAuthenticated }
+function checkNotAuthenticated(req, res, next) {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  if (req.isAuthenticated()) {
+      return res.redirect('/')
+    }
+    next()
+}
+
+module.exports = { checkAuthenticated, checkNotAuthenticated }

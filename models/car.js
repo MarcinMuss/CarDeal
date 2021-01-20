@@ -3,11 +3,11 @@ const mongoose = require('mongoose')
 const carSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: false
   },
   price: {
     type: Number,
-    required: true
+    required: false
   },
   brand: {
     type: String,
@@ -19,7 +19,7 @@ const carSchema = new mongoose.Schema({
   },
   yearOfProduction: {
     type: Date,
-    required: true
+    required: false
   },
   mileage: {
     type: Number,

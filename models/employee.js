@@ -7,13 +7,13 @@ const employeeSchema = new mongoose.Schema({
     required: true
   },
   surname: {
-  type: String,
-  required: true
-},
+    type: String,
+    required: true
+  },
   pesel: {
-  type: Number,
-  required: true
-}
+    type: Number,
+    required: true
+  }
 })
 
 employeeSchema.pre('remove', function(next) {

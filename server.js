@@ -52,6 +52,6 @@ app.use('/', indexRouter)
 app.use('/admin/employees', checkAuthenticated, employeeRouter)
 app.use('/admin/cars', checkAuthenticated, carRouter)
 
-app.use('/log', loginRouter)
+app.use('/', loginRouter)
 
 app.listen(process.env.PORT || 3000)
