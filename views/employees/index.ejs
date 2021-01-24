@@ -1,8 +1,8 @@
 <h2 class="page-header">Search Employees</h2>
-<form action="/admin/employees" method="GET">
+<form action="/employees" method="GET">
   <div class="form-row">
     <div class="form-item">
-      <label>Name</label>
+      <label>Name or surname</label>
       <input type="text" name="name" value="<%= searchOptions.name %>">
     </div>
   </div>
@@ -15,10 +15,10 @@
   <div class="employee-row">
     <div class="employee-name"><%= employee.name %> <%= employee.surname %></div>
     <div class="btn-row">
-      <a class="btn btn-primary" href="/admin/employees/<%= employee.id %>">View</a>
-      <a class="btn btn-primary" href="/admin/employees/<%= employee.id %>/edit">Edit</a>
+      <a class="btn btn-primary" href="/employees/<%= employee.id %>">View</a>
+      <a class="btn btn-primary" href="/employees/<%= employee.id %>/edit">Edit</a>
       <%- include('../partials/deleteForm',
-                  { url: `/admin/employees/${employee.id}` }) %>
+                  { url: `/employees/${employee.id}` }) %>
     </div>
   </div>
 <% }) %>

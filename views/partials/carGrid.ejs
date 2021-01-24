@@ -2,8 +2,9 @@
 <% carGridClass = locals.large ? 'car-grid-large' : '' %>
 <div class="car-grid <%= carGridClass %>">
   <% cars.forEach(car => { %>
-    <a href="/admin/cars/<%= car.id %>">
-      <img class="car-cover <%= carCoverClass %>" src="<%= car.coverImagePath %>">
+    <a href="/cars/<%= car.id %>">
+      <img class="car-cover <%= carCoverClass %>" src="<%= car.coverImagePaths[0] %>">
+      <span><%= car.title + car.price %></span>
     </a>
   <% }) %>
 </div>

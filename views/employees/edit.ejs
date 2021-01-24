@@ -1,8 +1,8 @@
 <h2 class="page-header">Edit Employee</h2>
-<form action="/admin/employees/<%= employee.id %>?_method=PUT" method="POST">
+<form action="/employees/<%= employee.id %>?_method=PUT" method="POST">
   <%- include('_form_fields') %>
   <div class="form-row form-row-end btn-row">
-    <a class="btn btn-danger" href="/admin/employees/<%= employee.id %>">Cancel</a>
+    <a class="btn btn-danger" href="/employees/<%= employee.id %>">Cancel</a>
     <button class="btn btn-primary" type="submit">Update</button>
   </div>
 </form>

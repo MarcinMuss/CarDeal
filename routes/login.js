@@ -6,13 +6,12 @@ const { checkAuthenticated } = require('../authentication/authentication')
 const { checkNotAuthenticated } = require('../authentication/authentication')
 
 const User = require('../models/user')
-const users = []
 
 const initializePassport = require('../public/javascripts/passport-config')
 initializePassport(
   passport,
-  email => users.find(user => user.email === email),
-  id => users.find(user => user.id === id)
+  async email => await User.findOne({ email: email }),
+  id => User.findById(id)
 )
 
 
@@ -25,7 +24,7 @@ router.get('/login', checkNotAuthenticated, (req, res) => {
 })
   
 router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-    successRedirect: '/admin',
+    successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
 }))
@@ -36,17 +35,26 @@ router.get('/register', checkNotAuthenticated, (req, res) => {
   
 router.post('/register', checkNotAuthenticated, async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    users.push({
-      id: Date.now().toString(),
-      name: req.body.name,
-      email: req.body.email,
-      password: hashedPassword
-    })
+    const existingUser = await User.findOne({email: req.body.email})
+    if (existingUser) {
+      res.render('login/register', {
+        errorMessage: 'email already registered'
+      })
+    } else {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10)
+      const user = new User({
+        id: Date.now().toString(),
+        name: req.body.name,
+        email: req.body.email,
+        password: hashedPassword
+      });
+      user.save();
+      console.log(user);
       res.redirect('/login')
-    } catch {
-      res.redirect('/register')
     }
+  } catch {
+    res.redirect('/register')
+  }
 })
 
 

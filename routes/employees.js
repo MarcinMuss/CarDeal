@@ -5,12 +5,13 @@ const Car = require('../models/car')
 
 // All Employees Route
 router.get('/', async (req, res) => {
-  let searchOptions = {}
+  let search = {};
   if (req.query.name != null && req.query.name !== '') {
-    searchOptions.name = new RegExp(req.query.name, 'i')
+    const searchTerm = new RegExp(req.query.name, 'i')
+    search.$or = [{ 'name': searchTerm }, { 'surname': searchTerm }];
   }
   try {
-    const employees = await Employee.find(searchOptions)
+    const employees = await Employee.find(search)
     res.render('employees/index', {
       employees: employees,
       searchOptions: req.query
@@ -63,7 +64,7 @@ router.get('/:id/edit', async (req, res) => {
     const employee = await Employee.findById(req.params.id)
     res.render('employees/edit', { employee: employee })
   } catch {
-    res.redirect('/admin/employees')
+    res.redirect('/employees')
   }
 })
 
@@ -75,7 +76,7 @@ router.put('/:id', async (req, res) => {
     employee.surname = req.body.surname
     employee.pesel = req.body.pesel
     await employee.save()
-    res.redirect(`/admin/employees/${employee.id}`)
+    res.redirect(`/employees/${employee.id}`)
   } catch {
     if (employee == null) {
       res.redirect('/')
@@ -94,12 +95,12 @@ router.delete('/:id', async (req, res) => {
   try {
     employee = await Employee.findById(req.params.id)
     await employee.remove()
-    res.redirect('/admin/employees')
+    res.redirect('/employees')
   } catch {
     if (employee == null) {
       res.redirect('/')
     } else {
-      res.redirect(`/admin/employees/${employee.id}`)
+      res.redirect(`/employees/${employee.id}`)
     }
   }
 })

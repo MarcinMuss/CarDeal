@@ -1,9 +1,9 @@
 <h2 class="page-header"><%= employee.name %> <%= employee.surname %></h2>
 <h2><%= employee.pesel %></h2>
 <div class="btn-row">
-  <a class="btn btn-primary" href="/admin/employees/<%= employee.id %>/edit">Edit</a>
+  <a class="btn btn-primary" href="/employees/<%= employee.id %>/edit">Edit</a>
   <%- include('../partials/deleteForm',
-              { url: `/admin/employees/${employee.id}` }) %>
+              { url: `/employees/${employee.id}` }) %>
 </div>
 <% if (carsByEmployee.length > 0) { %>
   <h2 class="page-header">Cars By Employee</h2>

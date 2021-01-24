@@ -3,9 +3,11 @@ const router = express.Router()
 const Car = require('../models/car')
 const Employee = require('../models/employee')
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
+const { checkAuthenticated, checkNotAuthenticated } = require('../authentication/authentication');
+
 
 // All Cars Route
-router.get('/', async (req, res) => {
+router.get('/', checkAuthenticated, async (req, res) => {
   let query = Car.find()
   if (req.query.title != null && req.query.title != '') {
     query = query.regex('title', new RegExp(req.query.title, 'i'))
@@ -28,12 +30,12 @@ router.get('/', async (req, res) => {
 })
 
 // New Car Route
-router.get('/new', async (req, res) => {
+router.get('/new',checkAuthenticated, async (req, res) => {
   renderNewPage(res, new Car())
 })
 
 // Create Car Route
-router.post('/', async (req, res) => {
+router.post('/', checkAuthenticated, async (req, res) => {
   const car = new Car({
     title: req.body.title,
     employee: req.body.employee,
@@ -69,8 +71,8 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const car = await Car.findById(req.params.id)
-                           .populate('employee')
-                           .exec()
+      .populate('employee')
+      .exec()
     res.render('cars/show', { car: car })
   } catch {
     res.redirect('/')
@@ -78,7 +80,7 @@ router.get('/:id', async (req, res) => {
 })
 
 // Edit Car Route
-router.get('/:id/edit', async (req, res) => {
+router.get('/:id/edit', checkAuthenticated, async (req, res) => {
   try {
     const car = await Car.findById(req.params.id)
     renderEditPage(res, car)
@@ -88,7 +90,7 @@ router.get('/:id/edit', async (req, res) => {
 })
 
 // Update Car Route
-router.put('/:id', async (req, res) => {
+router.put('/:id', checkAuthenticated, async (req, res) => {
   let car
   try {
     car = await Car.findById(req.params.id)
@@ -115,7 +117,7 @@ router.put('/:id', async (req, res) => {
       saveCover(car, req.body.cover)
     }
     await car.save()
-    res.redirect(`/admin/cars/${car.id}`)
+    res.redirect(`/cars/${car.id}`)
   } catch {
     if (car != null) {
       renderEditPage(res, car, true)
@@ -126,12 +128,12 @@ router.put('/:id', async (req, res) => {
 })
 
 // Delete Car Page
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', checkAuthenticated, async (req, res) => {
   let car
   try {
     car = await Car.findById(req.params.id)
     await car.remove()
-    res.redirect('/admin/cars')
+    res.redirect('/cars')
   } catch {
     if (car != null) {
       res.render('cars/show', {
@@ -168,7 +170,7 @@ async function renderFormPage(res, car, form, hasError = false) {
     }
     res.render(`cars/${form}`, params)
   } catch {
-    res.redirect('/admin/cars')
+    res.redirect('/cars')
   }
 }
 

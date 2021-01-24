@@ -5,9 +5,11 @@
       <img class="car-cover" src="<%= cover %>">
     <% } %>
     <div class="car-details-btn-grid">
-      <a class="btn btn-primary" href="/admin/cars/<%= car.id %>/edit">Edit</a>
-      <%- include('../partials/deleteForm', { url: `/admin/cars/${car.id}` }) %>
-      <a class="btn btn-primary car-details-employee-button" href="/admin/employees/<%= car.employee.id %>">View Employee</a>
+      <% if (isAuthenticated) { %>
+      <a class="btn btn-primary" href="/cars/<%= car.id %>/edit">Edit</a>
+      <%- include('../partials/deleteForm', { url: `/cars/${car.id}` }) %>
+      <a class="btn btn-primary car-details-employee-button" href="/employees/<%= car.employee.id %>">View Employee</a>
+      <% } %>
     </div>
   </div>
   <div class="car-details-grid">

@@ -1,20 +1,16 @@
 <header>
   <nav class="header-nav">
-    <% if (isAuthenticated) { %>
-    <a class="header-title" href="/admin">CarDeal</a>
-    <% } else { %>
     <a class="header-title" href="/">CarDeal</a>
-    <% } %>
     <ul>
       <% if (isAuthenticated) { %>
-      <li><a href="/admin/employees">Employees</a></li>
-      <li><a href="/admin/employees/new">Add Employee</a></li>
-      <li><a href="/admin/cars">Cars</a></li>
-      <li><a href="/admin/cars/new">Add Car</a></li>
+      <li><a href="/employees">Employees</a></li>
+      <li><a href="/employees/new">Add Employee</a></li>
+      <li><a href="/cars">Cars</a></li>
+      <li><a href="/cars/new">Add Car</a></li>
+      <li><a href="/notification">Notification</a></li>
       <li><form action="/logout?_method=DELETE" method="POST">
             <button class="btn btn-danger" type="submit">Log Out</button>
           </form>
-      <!-- <li><a href="/log">Log out</a></li> -->
       <% } %>
       </li> 
     </ul>

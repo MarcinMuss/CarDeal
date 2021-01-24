@@ -1,5 +1,4 @@
 function checkAuthenticated(req, res, next) {
-    res.locals.isAuthenticated = req.isAuthenticated()
     if (req.isAuthenticated()) {
       return next()
     }
@@ -8,11 +7,15 @@ function checkAuthenticated(req, res, next) {
 }
 
 function checkNotAuthenticated(req, res, next) {
-  res.locals.isAuthenticated = req.isAuthenticated()
   if (req.isAuthenticated()) {
       return res.redirect('/')
     }
     next()
 }
 
-module.exports = { checkAuthenticated, checkNotAuthenticated }
+function setIsAuthenticated(req, res, next) {
+  res.locals.isAuthenticated = req.isAuthenticated();
+  next();
+}
+
+module.exports = { checkAuthenticated, checkNotAuthenticated, setIsAuthenticated }

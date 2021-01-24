@@ -7,7 +7,7 @@ const app = express()
 const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
-const { checkAuthenticated } = require('./authentication/authentication')
+const { checkAuthenticated, setIsAuthenticated } = require('./authentication/authentication')
 
 
 const passport = require('passport')
@@ -18,8 +18,8 @@ const session = require('express-session')
 const indexRouter = require('./routes/index')
 const employeeRouter = require('./routes/employees')
 const carRouter = require('./routes/cars')
-
 const loginRouter = require('./routes/login')
+const notificationRouter = require('./routes/notification')
 
 
 
@@ -48,10 +48,11 @@ const db = mongoose.connection
 db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to Mongoose'))
 
+app.use(setIsAuthenticated)
 app.use('/', indexRouter)
-app.use('/admin/employees', checkAuthenticated, employeeRouter)
-app.use('/admin/cars', checkAuthenticated, carRouter)
-
+app.use('/employees', checkAuthenticated, employeeRouter)
+app.use('/cars', carRouter)
 app.use('/', loginRouter)
+app.use('/notification', notificationRouter)
 
 app.listen(process.env.PORT || 3000)

@@ -4,7 +4,7 @@ const User = require('../../models/user')
 
 function initialize(passport, getUserByEmail, getUserById) {
   const authenticateUser = async (email, password, done) => {
-    const user = getUserByEmail(email)
+    const user = await getUserByEmail(email)
     if (user == null) {
       return done(null, false, { message: 'No user with that email' })
     }
