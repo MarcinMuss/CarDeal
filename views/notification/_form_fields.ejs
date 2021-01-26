@@ -1,0 +1,19 @@
+<form action="/notification" method="POST">
+    <div class="form-row">
+        <div class="form-item">
+          <label>Email</label>
+          <input type="email" name="email" value="<%= notification.email %>">
+        </div>
+    </div>
+      
+    <div class="form-row">
+        <div class="form-item">
+          <label>Message</label>
+          <textarea name="message"><%= notification.message %></textarea>
+        </div>
+    </div>
+    
+    <div class="form-row form-row-end btn-row">
+        <button class="btn btn-primary" type="submit">Send</button>
+    </div>
+</form>

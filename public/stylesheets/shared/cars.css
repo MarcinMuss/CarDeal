@@ -1,7 +1,7 @@
 :root {
-  --car-cover-width: 200px;
-  --car-cover-width-large: 325px;
-  --car-cover-aspect-ratio: 0.75;
+  --car-cover-width: 390px;
+  --car-cover-width-large: 525px;
+  --car-cover-aspect-ratio: 1.75;
 }
 
 .car-cover {
@@ -56,5 +56,13 @@
 
 .car-details-employee-button {
   grid-area: employee;
-  justify-self: stretch;
+}
+
+.car-title {
+  text-decoration: none;
+  color: var(--color-text-light);
+}
+
+.car-title:hover {
+  color: white;
 }

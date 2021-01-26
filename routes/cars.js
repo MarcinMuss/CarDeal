@@ -3,8 +3,8 @@ const router = express.Router()
 const Car = require('../models/car')
 const Employee = require('../models/employee')
 const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
-const { checkAuthenticated, checkNotAuthenticated } = require('../authentication/authentication');
-
+const { checkAuthenticated } = require('../authentication/authentication')
+const Notification = require('../models/notification')
 
 // All Cars Route
 router.get('/', checkAuthenticated, async (req, res) => {
@@ -73,7 +73,7 @@ router.get('/:id', async (req, res) => {
     const car = await Car.findById(req.params.id)
       .populate('employee')
       .exec()
-    res.render('cars/show', { car: car })
+    res.render('cars/show', { car: car, notification: new Notification() })
   } catch {
     res.redirect('/')
   }

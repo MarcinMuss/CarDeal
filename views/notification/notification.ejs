@@ -1,1 +1,24 @@
-<h1>Notification</h1>
+<h2 class="page-header">Notification</h2>
+
+<form action="/notification?_method=DELETE" method="POST">
+    
+<% notifications.forEach(notification => { %>
+<div class="form-row">
+    <div class="form-item">
+      <label>Email</label>
+      <%= notification.email %>
+    </div>
+</div>
+  
+<div class="form-row">
+    <div class="form-item">
+      <label>Message</label>
+      <%= notification.message %>
+        <div class="btn-row">
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </div>
+   </div>
+</div>
+<br><br>
+<% }) %>
+</form>

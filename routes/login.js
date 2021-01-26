@@ -2,7 +2,6 @@ const express = require('express')
 const passport = require('passport')
 const bcrypt = require('bcrypt')
 const router = express.Router()
-const { checkAuthenticated } = require('../authentication/authentication')
 const { checkNotAuthenticated } = require('../authentication/authentication')
 
 const User = require('../models/user')
